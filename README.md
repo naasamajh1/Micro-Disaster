@@ -78,6 +78,7 @@ PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 GROQ_API_KEY=your_groq_api_key
+WEATHER_API_KEY=your_weather_api_key
 SUPABASE_URL=your_supabase_url
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_key
 CLIENT_URL=http://localhost:5173
