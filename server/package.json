@@ -2,8 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "description": "This is the backend part of the Micro-disaster alert system.",
-  "license": "ISC",
   "author": "Bhaskar Sisodiya",
+  "license": "ISC",
   "type": "module",
   "main": "server.js",
   "scripts": {
