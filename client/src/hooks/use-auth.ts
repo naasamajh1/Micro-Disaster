@@ -43,13 +43,13 @@ export function useRegister() {
 }
 
 export function useLogout() {
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const clearAuth = useAuthStore((state) => state.clearAuth)
 
   return () => {
     clearAuth()
     queryClient.clear()
-    navigate('/')
+    // Use window.location to ensure clean redirect to landing page
+    window.location.href = '/'
   }
 }

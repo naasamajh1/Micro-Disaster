@@ -3,12 +3,24 @@ import User from "../models/User.js";
 import { normalizeLocationKey, toTitleCase } from "../utils/locationUtils.js";
 
 export const getUserProfileById = async (userId) => {
-  return User.findById(userId).select("-password");
+  const user = await User.findById(userId).select("-password");
+  
+  // Normalize role to lowercase for consistency
+  if (user && user.role) {
+    user.role = user.role.toLowerCase();
+  }
+  
+  return user;
 };
 
 export const updateUserProfileById = async (userId, body) => {
   const user = await User.findById(userId);
   if (!user) return null;
+
+  // Normalize role to lowercase for consistency
+  if (user.role) {
+    user.role = user.role.toLowerCase();
+  }
 
   // ✅ USERNAME UPDATE (unique check)
   if (body.username && body.username !== user.username) {
@@ -40,6 +52,7 @@ export const updateUserProfileById = async (userId, body) => {
 
   return {
     user: {
+      _id: updatedUser._id,
       username: updatedUser.username,
       email: updatedUser.email,
       phone: updatedUser.phone,
@@ -47,7 +60,10 @@ export const updateUserProfileById = async (userId, body) => {
       location: updatedUser.location,
       locationKey: updatedUser.locationKey,
       avatar: updatedUser.avatar,
-      isAdmin: updatedUser.isAdmin,
+      role: updatedUser.role,
+      isAdmin: updatedUser.role?.toLowerCase() === 'admin',
+      createdAt: updatedUser.createdAt,
+      updatedAt: updatedUser.updatedAt,
     },
   };
 };

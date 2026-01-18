@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema(
 
 /* ✅ CORRECT pre-save hook */
 userSchema.pre("save", async function () {
+  // Normalize role to lowercase for consistency
+  if (this.role) {
+    this.role = this.role.toLowerCase();
+  }
+  
   if (!this.isModified("password")) return;
 
   this.password = await bcrypt.hash(this.password, 10);

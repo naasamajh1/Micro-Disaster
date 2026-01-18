@@ -23,5 +23,10 @@ export const loginExistingUser = async ({ email, password }) => {
     return { ok: false, status: 401, message: "Invalid credentials" };
   }
 
+  // Normalize role to lowercase for consistency
+  if (user.role) {
+    user.role = user.role.toLowerCase();
+  }
+
   return { ok: true, user };
 };
